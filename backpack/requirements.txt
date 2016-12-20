@@ -1,2 +1,0 @@
-Django 1.10.3
-Python 2.7.12
