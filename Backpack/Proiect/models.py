@@ -15,3 +15,8 @@ class UserProfile(models.Model):
     Sex = models.CharField(max_length=1, choices=SEX_CHOICES, default=FEMALE)
     Avatar = models.ImageField(null=True, upload_to='Avatars')
     #User = models.OneToOneField(User, primary_key=True, related_name='profile', on_delete = models.CASCADE)
+	
+class Destination (models.Model):
+    Destination_name = models.CharField(max_length=50)
+    Country = models.CharField(max_length=50)
+    City = models.CharField(max_length=50)
