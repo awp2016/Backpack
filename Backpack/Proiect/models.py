@@ -16,4 +16,4 @@ class UserProfile(models.Model):
     Birthdate = models.DateField(null=True)
     Sex = models.CharField(max_length=1, choices=SEX_CHOICES, default=FEMALE)
     Avatar = models.ImageField(null=True, upload_to='Avatars')
-    User = models.OneToOneField(User, primary_key=True, related_name='profile', on_delete = models.CASCADE)
+    #User = models.OneToOneField(User, primary_key=True, related_name='profile', on_delete = models.CASCADE)
