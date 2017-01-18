@@ -13,3 +13,5 @@ class ProfileView(DetailView):
         context = super(ProfileView, self).get_context_data(**kwargs)
         return context
 
+
+
