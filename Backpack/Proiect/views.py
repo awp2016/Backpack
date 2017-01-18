@@ -4,6 +4,7 @@ from . import forms
 from django.views.generic.detail import DetailView
 from . import models
 from django.views.generic.edit import UpdateView
+from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -45,4 +46,15 @@ class EditProfile(LoginRequiredMixin, UpdateView):
     model = models.UserProfile
     fields = ['First_name', 'Last_name', 'Birthdate', 'Sex', 'Avatar']
     template_name = 'TBackpack/editProfile.html'
+	
+class ShowDestinations(LoginRequiredMixin, ListView):
+    model = models.Destination
+    template_name = 'TBackpack/Destinations.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowDestinations, self).get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self):
+        return self.model.objects.order_by('Destination_name')
 

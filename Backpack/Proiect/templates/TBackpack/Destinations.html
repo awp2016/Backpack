@@ -1,0 +1,8 @@
+<h2>Destinations</h2>
+<ul>
+	{% for d in object_list %}
+	<li> {{d.Destination_name}} </li>
+	<li> {{d.Country}} </li>
+	<li> {{d.City}} </li>
+	{% endfor %}
+</ul>
