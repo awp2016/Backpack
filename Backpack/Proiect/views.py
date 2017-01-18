@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
+from . import forms
 from django.views.generic.detail import DetailView
 from . import models
-
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class ProfileView(DetailView):
@@ -14,4 +17,32 @@ class ProfileView(DetailView):
         return context
 
 
+def login_view(request):
+    context = {}
+    if request.method == 'GET':
+        form = forms.LoginForm()
+    elif request.method == 'POST':
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            user = authenticate(username=form.cleaned_data['username'],
+                                password=form.cleaned_data['password'])
+            if user:
+                login(request=request,
+                      user=user)
+                return redirect('index')
+            else:
+                context['error_message'] = 'Wrong username or password!'
+    context['form'] = form
+    return render(request, 'TBackpack/login.html', context)
+
+def logout_view(request):
+    if request.method == 'GET':
+        logout(request)
+        return redirect('login')
+
+
+class EditProfile(LoginRequiredMixin, UpdateView):
+    model = models.UserProfile
+    fields = ['First_name', 'Last_name', 'Birthdate', 'Sex', 'Avatar']
+    template_name = 'TBackpack/editProfile.html'
 

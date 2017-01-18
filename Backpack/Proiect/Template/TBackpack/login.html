@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login</title>
+</head>
+<body>
+<div>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ error_message }}
+    <button type="submit">Login</button>
+  </form>
+</div>
+</body>
+</html>
