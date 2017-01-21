@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from datetime import datetime
 from models import Review,Destination
+from django.http import HttpResponse
 
 class ProfileView(DetailView):
 
@@ -151,6 +152,8 @@ def signup(request):
             Last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
             password1 = form.cleaned_data['password1']
+            if User.objects.filter(username=username).exists():
+                return HttpResponse('<p>Username exista!!!</p>')
             new_user = User.objects.create_user(username=username, first_name=First_name, last_name=Last_name, password=password1)
             login(request, new_user)
             return redirect('destinations')
