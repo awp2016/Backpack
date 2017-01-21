@@ -6,6 +6,7 @@ from . import models
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
 class ProfileView(DetailView):
@@ -49,6 +50,14 @@ class EditProfile(LoginRequiredMixin, UpdateView):
     
 
 class ShowDestinations(ListView):
+
+    def get_success_url(self, **kwargs):
+        #import pdb; pdb.set_trace()
+        return reverse_lazy('profile_info', kwargs = {'pk': self.object.User.id})
+	
+
+class ShowDestinations(LoginRequiredMixin, ListView):
+>>>>>>> 04bae193c09e1f64359dd3eb46dd1bd6cfa2c0ca
     model = models.Destination
     template_name = 'TBackpack/destinations.html'
 
