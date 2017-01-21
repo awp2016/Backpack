@@ -7,7 +7,7 @@ from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-
+from django.contrib.auth.models import User
 
 class ProfileView(DetailView):
 
@@ -74,4 +74,22 @@ class ViewDestination (DetailView):
         context["reviews"] = models.Review.objects.filter(Destination_id = kwargs['object'].id)
         return context
 
-    
+def signup(request):
+    context = {}
+    if request.method == "GET":
+        context['form'] = forms.signupForm()
+        return render(request, 'TBackpack/signup.html', context=context)
+    form = forms.signupForm(request.POST)
+    #import pdb 
+    #pdb.set_trace()
+    if request.method == "POST":
+        if form.is_valid(): 
+            username = form.cleaned_data['username']
+            First_name = form.cleaned_data['first_name']
+            Last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            password1 = form.cleaned_data['password1']
+            new_user = User.objects.create_user(username=username, first_name=First_name, last_name=Last_name, password=password1)
+            login(request, new_user)
+            return redirect('destinations')
+        return HttpResponse(form.errors)
