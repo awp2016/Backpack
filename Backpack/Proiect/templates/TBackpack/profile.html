@@ -1,4 +1,3 @@
-  
 {% extends 'TBackpack/layout.html' %}
 
 {% block head %}
@@ -12,6 +11,8 @@
         <li>Last Name: {{object.Last_name}}</li>
         <li>Birthdate: {{object.Birthdate}}</li>
         <li>Sex: {{object.Sex}}</li>
+        <li><a href="{% url 'wishlist' object.pk%}">Wishlist</a></li>
     </ul>
 
  {% endblock %}
+

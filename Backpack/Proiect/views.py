@@ -47,7 +47,8 @@ class EditProfile(LoginRequiredMixin, UpdateView):
     fields = ['First_name', 'Last_name', 'Birthdate', 'Sex', 'Avatar']
     template_name = 'TBackpack/editProfile.html'
     
-class ShowDestinations(LoginRequiredMixin, ListView):
+
+class ShowDestinations(ListView):
     model = models.Destination
     template_name = 'TBackpack/destinations.html'
 
@@ -68,4 +69,15 @@ class ViewDestination (DetailView):
         context["reviews"] = models.Review.objects.filter(Destination_id = kwargs['object'].id)
         return context
 
-    
+
+class ShowWishlist(LoginRequiredMixin, ListView):
+    model = models.Wishlist
+    template_name = 'TBackpack/wishlist.html'
+    pk_url_kwarg = "pk"
+
+
+    def get_context_data(self, **kwargs):
+        context = {}
+        context["wishlist"] = models.Wishlist.objects.filter(User_id = self.request.user.id)
+        return context
+
