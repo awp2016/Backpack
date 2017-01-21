@@ -9,7 +9,7 @@
 <ol>
 	{% for w in wishlist %}
 	<li> {{w.Destination_id.Destination_name}} </li>
-	<p><a href="{% url 'viewDest' w.Destination_id %}"> Detalii destinatie </a> </p>
+	<p><a href="{% url 'viewDest' w.Destination_id.id %}"> Detalii destinatie </a> </p>
 	
 	{% endfor %}
 </ol>

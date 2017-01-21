@@ -45,11 +45,13 @@ def logout_view(request):
         logout(request)
         return redirect('login')
 
-def create_wishlist_object(request, destination_id, user_id):
-    if request.method == 'POST':
-        destination = Destination.objects.get(pk=destination_id)
-        user = User.objects.get(pk=user_id)
-        Wishlist.object.create(destination, user);
+def create_wishlist_object(request, pk_destinatie):
+    if request.method == 'GET':
+        import pdb
+        pdb.set_trace();
+        destination = Destination.objects.get(pk=pk_destinatie)
+        user = request.user
+        models.Wishlist.objects.create(Destination_id = destination, User_id = user);
         return redirect('destinations')
 
 
