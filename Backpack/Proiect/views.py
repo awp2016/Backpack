@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from . import forms
 from django.views.generic.detail import DetailView
@@ -72,6 +73,16 @@ class ViewDestination (DetailView):
     def get_context_data(self, **kwargs):
         context = super(ViewDestination, self).get_context_data(**kwargs)
         context["reviews"] = models.Review.objects.filter(Destination_id = kwargs['object'].id)
+
+        s = 0
+        for r in context['reviews']:
+            s = s + r.Rating
+
+        import pdb; pdb.set_trace();
+        if len(context['reviews']) != 0:
+            context["grade"] = s/len(context['reviews'])
+        else:
+            context["grade"] = 0
         return context
 
     

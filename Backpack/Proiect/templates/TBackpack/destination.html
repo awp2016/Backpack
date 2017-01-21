@@ -1,9 +1,20 @@
-<p>Welcome to {{object.Destination_name}} !</p>
+{% extends 'TBackpack/layout.html' %}
 
-<p> {{object.Country}} </p>
-<p> {{object.City}} </p>
+{% block head %}
+<p>Welcome to <strong>{{object.Destination_name}} </strong>! 
+Country: {{object.Country}} City: {{object.City}}
+Rating: {{grade}}
+</p>
+{% endblock %}
+
+
+{% block content %}
+<div> <strong> Reviews: </strong>
 {% for r in reviews %}
+	<img src="{{ r.Photo.url }}"/> 
 	<p> {{r.Text}}</p>
-	<p> {{r.Date_added}} </p>
-	{% endfor %}
 
+	<p>added by {{r.User_id.username}} at {{r.Date_added}} </p>
+	{% endfor %}
+</div>
+{% endblock %}
