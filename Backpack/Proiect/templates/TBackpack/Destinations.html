@@ -1,8 +1,24 @@
-<h2>Destinations</h2>
+
+
+{% extends 'TBackpack/layout.html' %}
+
+{% block head %}
+  <h1>Destinatii</h1>
+{% endblock %}
+
+
+{% block content %}
+
+
 <ol>
+
 	{% for d in object_list %}
 	<li> {{d.Destination_name}} </li>
 	<p> {{d.Country}} </p>
 	<p> {{d.City}} </p>
 	{% endfor %}
+
 </ol>
+
+
+{% endblock %}

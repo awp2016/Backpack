@@ -1,4 +1,11 @@
-    <h2>{{object.user.username}}</h2>
+  
+{% extends 'TBackpack/layout.html' %}
+
+{% block head %}
+<h1>My Profile - {{object.user.username}} </h1>
+{% endblock %}
+
+{% block content %}
 
     <ul>
         <li>First Name: {{object.First_name}}</li>
@@ -6,3 +13,5 @@
         <li>Birthdate: {{object.Birthdate}}</li>
         <li>Sex: {{object.Sex}}</li>
     </ul>
+
+ {% endblock %}
