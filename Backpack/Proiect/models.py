@@ -30,7 +30,7 @@ class Wishlist(models.Model):
 class Review(models.Model):
     Text = models.CharField(max_length=100)
     Date_added = models.DateTimeField(auto_now_add=True)
-    Avatar = models.ImageField(null=True, upload_to='images')
+    Photo = models.ImageField(null=True, upload_to='Avatars')
     Rating = models.IntegerField()
     User_id = models.ForeignKey(User,on_delete=models.CASCADE)
     Destination_id = models.ForeignKey(Destination,on_delete=models.CASCADE)
@@ -40,3 +40,4 @@ class Comment(models.Model):
     Date_added = models.DateTimeField(auto_now_add=True)
     Author = models.ForeignKey(User)
     Review = models.ForeignKey(Review)
+

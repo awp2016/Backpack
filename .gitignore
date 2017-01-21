@@ -92,3 +92,4 @@ ENV/
 requirements.txt
 db.sqlite3
 images/
+Avatars/
