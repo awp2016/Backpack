@@ -1,0 +1,9 @@
+<p>Welcome to {{object.Destination_name}} !</p>
+
+<p> {{object.Country}} </p>
+<p> {{object.City}} </p>
+{% for r in reviews %}
+	<p> {{r.Text}}</p>
+	<p> {{r.Date_added}} </p>
+	{% endfor %}
+

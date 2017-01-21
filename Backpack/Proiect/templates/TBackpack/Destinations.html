@@ -13,7 +13,7 @@
 <ol>
 
 	{% for d in object_list %}
-	<li> {{d.Destination_name}} </li>
+	<li> <a href= "{% url 'viewDest' d.pk%}">{{d.Destination_name}}</a> </li>
 	<p> {{d.Country}} </p>
 	<p> {{d.City}} </p>
 	{% endfor %}

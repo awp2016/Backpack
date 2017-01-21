@@ -30,7 +30,7 @@ def login_view(request):
             if user:
                 login(request=request,
                       user=user)
-                return redirect('index')
+                return redirect('destinations')
             else:
                 context['error_message'] = 'Wrong username or password!'
     context['form'] = form
@@ -46,10 +46,10 @@ class EditProfile(LoginRequiredMixin, UpdateView):
     model = models.UserProfile
     fields = ['First_name', 'Last_name', 'Birthdate', 'Sex', 'Avatar']
     template_name = 'TBackpack/editProfile.html'
-	
+    
 class ShowDestinations(LoginRequiredMixin, ListView):
     model = models.Destination
-    template_name = 'TBackpack/Destinations.html'
+    template_name = 'TBackpack/destinations.html'
 
     def get_context_data(self, **kwargs):
         context = super(ShowDestinations, self).get_context_data(**kwargs)
@@ -57,4 +57,15 @@ class ShowDestinations(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return self.model.objects.order_by('Destination_name')
+        
+class ViewDestination (DetailView):
+    model = models.Destination
+    template_name = 'TBackpack/destination.html'
+    pk_url_kwarg = "dest_pk"
+    
+    def get_context_data(self, **kwargs):
+        context = super(ViewDestination, self).get_context_data(**kwargs)
+        context["reviews"] = models.Review.objects.filter(Destination_id = kwargs['object'].id)
+        return context
 
+    
