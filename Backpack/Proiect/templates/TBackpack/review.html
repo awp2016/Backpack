@@ -1,0 +1,30 @@
+
+{% extends 'TBackpack/layout.html' %}
+
+{% block head %}
+  <h1>Reviews</h1>
+{% endblock %}
+
+{% block content %}
+
+<p> {{object.Text}} </p>
+<p> {{object.Date_added}} </p>
+<p> {{object.Rating}} </p>
+<p> {{object.User_id}} </p>
+
+{% for c in comments %}
+	<p> {{c.Text}}</p>
+	<p> {{c.Date_added}} </p>
+	<p> {{c.Author.username}} </p>
+{% endfor %}
+
+{% if request.user.is_authenticate%}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="button" type="submit" value="Save"/>
+  </form>
+{%endif%}
+
+{% endblock %}
+
