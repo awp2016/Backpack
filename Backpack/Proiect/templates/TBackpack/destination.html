@@ -9,8 +9,16 @@ Rating: {{grade}}
 
 
 {% block content %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="button" type="submit" value="Save"/>
+ </form>
+
 <div> <strong> Reviews: </strong>
-{% for r in reviews %}
+{% for r in reviews|dictsort:"Date_added" %}
+
 	<img src="{{ r.Photo.url }}"/> 
 	<p> {{r.Text}}</p>
 

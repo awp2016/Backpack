@@ -8,7 +8,8 @@ from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-
+from datetime import datetime
+from models import Review,Destination
 
 class ProfileView(DetailView):
 
@@ -58,7 +59,6 @@ class ShowDestinations(ListView):
 	
 
 class ShowDestinations(LoginRequiredMixin, ListView):
->>>>>>> 04bae193c09e1f64359dd3eb46dd1bd6cfa2c0ca
     model = models.Destination
     template_name = 'TBackpack/destinations.html'
 
@@ -71,23 +71,41 @@ class ShowDestinations(LoginRequiredMixin, ListView):
         
 class ViewDestination (DetailView):
     model = models.Destination
+
     template_name = 'TBackpack/destination.html'
+    
+    form_class = forms.ReviewForm
     pk_url_kwarg = "dest_pk"
     
     def get_context_data(self, **kwargs):
         context = super(ViewDestination, self).get_context_data(**kwargs)
         context["reviews"] = models.Review.objects.filter(Destination_id = kwargs['object'].id)
+        context["form"] = self.form_class()
 
         s = 0
         for r in context['reviews']:
             s = s + r.Rating
 
-        import pdb; pdb.set_trace();
         if len(context['reviews']) != 0:
             context["grade"] = s/len(context['reviews'])
         else:
             context["grade"] = 0
         return context
+
+
+    def post(self, request, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        import pdb;pdb.set_trace()
+        if form.is_valid():
+            destination = Destination.objects.get(pk=kwargs["dest_pk"])
+            revi = Review.objects.create(Text=form.cleaned_data['Text'],
+                            Photo=form.cleaned_data['Photo'],
+                            Rating=form.cleaned_data['Rating'],
+                            User_id=request.user,
+                            Destination_id=destination,
+                            )
+        return redirect("destinations")
+    
 
 
 class ShowWishlist(LoginRequiredMixin, ListView):
