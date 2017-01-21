@@ -7,11 +7,12 @@
 
 
 {% block content %}
-
-<form method = "POST" enctype="multipart/form-data">
+<div align="center">
+<form method = "POST" enctype="multipart/form-data" >
 		{% csrf_token %}
 		{{ form.as_p }}
-		<input type="submit" type="submit" value="Save"/>
-</form>
+		<div align="center"><input type="submit" type="submit" value="Save" class="btn btn-info" style="margin-left: 100"/></div>
+</form> 
+</div>
 
 {% endblock %}

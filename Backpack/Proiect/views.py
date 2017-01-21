@@ -47,8 +47,6 @@ def logout_view(request):
 
 def create_wishlist_object(request, pk_destinatie):
     if request.method == 'GET':
-        import pdb
-        pdb.set_trace();
         destination = Destination.objects.get(pk=pk_destinatie)
         user = request.user
         models.Wishlist.objects.create(Destination_id = destination, User_id = user);
@@ -102,6 +100,7 @@ class ViewDestination (DetailView):
     def post(self, request, **kwargs):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
+
             destination = Destination.objects.get(pk=kwargs["dest_pk"])
             revi = Review.objects.create(Text=form.cleaned_data['Text'],
                             Photo=form.cleaned_data['Photo'],

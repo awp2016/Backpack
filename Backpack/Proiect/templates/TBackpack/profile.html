@@ -6,17 +6,18 @@
 
 {% block content %}
 
-    <ul>
-        <li>First Name: {{object.First_name}}</li>
-        <li>Last Name: {{object.Last_name}}</li>
-        <li>Birthdate: {{object.Birthdate}}</li>
-        <li>Sex: {{object.Sex}}</li>
-        <li><a href="{% url 'wishlist' object.pk%}">Wishlist</a></li>
+    <ul class="list-group">
         {%if object.Avatar%}
-        <span class="user-image"> <img src="{{ object.Avatar.url }}" width="50px" height="50px" /> </span>
+        <div> <img src="{{ object.Avatar.url }}" width="304"   class="img-circle" style="margin-left: 50; margin-bottom: 10"/> </div>
         {%endif%}
+        <li  class="list-group-item"><strong>First Name</strong>: {{object.First_name}}</li>
+        <li  class="list-group-item"><strong>Last Name:</strong> {{object.Last_name}}</li>
+        <li  class="list-group-item"><strong>Birthdate:</strong> {{object.Birthdate}}</li>
+        <li  class="list-group-item"><strong>Sex:</strong> {{object.Sex}}</li>
+        <li  class="list-group-item"><a href="{% url 'wishlist' object.pk%}">Wishlist</a></li>
+        
     </ul>
-    <a class="button" href="{% url 'editProfile' object.User.id %}">Edit</a>
+    <a class="btn btn-info" style="margin-left: 180" href="{% url 'editProfile' object.User.id %}">Edit</a>
 
  {% endblock %}
 

@@ -3,27 +3,32 @@
 
 
 {% block content %}
+<div style="margin-left: 25px; margin-right: 25px">
+<h1>Welcome to <strong>{{object.Destination_name}} </strong>! </h1>
+<h2>Country: {{object.Country}} City: {{object.City}}
+Rating: {{grade}}</h2>
 
-<p>Welcome to <strong>{{object.Destination_name}} </strong>! 
-Country: {{object.Country}} City: {{object.City}}
-Rating: {{grade}}
-</p>
+<p style="margin-left: 25px; margin-right: 25px"> <a href="{%url 'add_to_wish_list' object.id%}"> Add to your wishlist </a></p>
+</div>
 
-
+{% if request.user.is_authenticated%}
+<div class="well" style="margin-left: 25px; margin-right: 25px">
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" class="button" type="submit" value="Save"/>
  </form>
 
-<div> <strong> Reviews: </strong>
+ </div>
+{%endif%}
+<div> <h1 style="text-align: center"> Reviews: </h1>
 {% for r in reviews|dictsortreversed:"Date_added" %}
-
-	<img src="{{ r.Photo.url }}" width="200" height="200"/> 
-	<p> {{r.Text}}</p>
-
-	<p>added by {{r.User_id.username}} at {{r.Date_added}} </p>
+	<div class="well row thumbnail" style="text-align: center; margin-left: 25px; margin-right: 25px ">
+	<img src="{{ r.Photo.url }}" style="width:20%"/> 
 	<a href= "{% url 'viewRev' r.pk%}"> View Comments</a>
+	<p> {{r.Text}}</p>
+	<p>added by {{r.User_id.username}} at {{r.Date_added}} </p>
+	</div>
 	{% endfor %}
 </div>
 {% endblock %}

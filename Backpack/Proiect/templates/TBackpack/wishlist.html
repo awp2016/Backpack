@@ -1,11 +1,12 @@
 {% extends 'TBackpack/layout.html' %}
 
-{% block head %}
-<h2>Wishlist</h2>
-{% endblock %}
+
+<h2 class="text-center">Wishlist</h2>
 
 {% block content %}
 
+<div class="col-md-2 col-md-offset-5">
+<h2 class="text-center">Wishlist</h2>
 <ol>
 	{% for w in wishlist %}
 	<li> {{w.Destination_id.Destination_name}} </li>
@@ -13,5 +14,5 @@
 	
 	{% endfor %}
 </ol>
-
+</div>
 {% endblock %}

@@ -2,28 +2,54 @@
   <head>
       <title>Backpack</title>
     {% load static %}
-   
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
   </head>
 
   <body>
-  <div>
-   <h1>Welcome to Backpack</h1>
+
+  <div class="jumbotron text-center">
+   <h2>Welcome to Backpack</h2>
     {% if request.user.is_authenticated%}
-    <div>
-    <span>Logged in as:<span>
+    <span><strong>Logged in as:</strong></span>
     {% if user.profile %}
       <a href="{% url 'profile_info' user.pk %}">{{ user.username }}</a>
     {% else %}
       {{ user.username }}
     {% endif %}
-    | <a href="{% url 'logout' %}">Logout</a>
+   
+    <nav class="navbar navbar-inverse" style="margin-top:30px">
+    <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="{% url 'destinations' %}">Home</a></li>
+      <li><a href="{% url 'editProfile' user.pk %}">Edit Profile</a></li>
+      <li><a href="{% url 'profile_info' user.pk %}">My Profile</a></li>
+      <li><a href="{% url 'wishlist' user.pk %}">My Wishlist</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+
     </div>
+    </nav>
+    
 
     {%else%}
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'signup' %}">Sign Up</a>
+    <nav class="navbar navbar-inverse" style="margin-top:30px">
+    <div class="container-fluid">
+       <ul class="nav navbar-nav">
+         <li class="active"><a href="{% url 'destinations' %}">Home</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'login' %}">Login</a></li>
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+      </ul>
+    </div>
+    </nav>
     {%endif%}
 
+  </div>
+  <div>
     {% block content %}
     {% endblock %}
   </div>

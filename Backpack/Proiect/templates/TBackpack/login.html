@@ -2,15 +2,27 @@
 <html lang="en">
 <head>
   <title>Login</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<style>
+body {
+    background: #ffffff url("http://www.tvta.org/Site/images/virtual-backpack-logo.png") no-repeat right top;
+  
+}
+</style>
 </head>
 <body>
-<div>
-<h2> Please Log In </h2>
+<div class="col-md-2 col-md-offset-5">
+<h2 class="text-center"> Please Log In </h2>
+</br>
+</br>
+</br>
+</br>
   <form method="POST">
     {% csrf_token %}
-    {{ form.as_ul }}
+    {{ form.as_p }}
     {{ error_message }}
-    <button type="submit">Login</button>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-info">Login</button></span>
   </form>
 </div>
 </body>

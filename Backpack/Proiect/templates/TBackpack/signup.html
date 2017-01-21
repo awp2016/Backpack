@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Sign up</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <title >Sign up</title>
 </head>
 <body>
 <div>
-<h2> Please Sign up </h2>
+<h2 class="text-center"> Please Sign up </h2>
+<div class="container" style = "margin: auto;
+    width: 50%;
+    border: 3px solid skyblue;
+    padding: 10px;">
   <form method="POST">
+  <div class="form-group">
     {% csrf_token %}
     {{ form.as_p }}
     {{ error_message }}
-    <button type="submit">Sign up</button>
+    </div>
+    <button class="btn btn-info" type="submit">Sign up</button>
   </form>
 </div>
 </body>
