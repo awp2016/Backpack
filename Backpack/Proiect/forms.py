@@ -13,8 +13,8 @@ class LoginForm(forms.Form):
 class CommentForm(ModelForm):
 	class Meta:
 	    model = Comment
-	    fields = ['Text', 'Author']
-	    exlude = ['Date_added']
+	    fields = ['Text']
+	    exlude = ['Date_added', 'Author']
 
 
 

@@ -61,15 +61,11 @@ class EditProfile(LoginRequiredMixin, UpdateView):
     fields = ['First_name', 'Last_name', 'Birthdate', 'Sex', 'Avatar']
     template_name = 'TBackpack/editProfile.html'
     
-
-class ShowDestinations(ListView):
-
     def get_success_url(self, **kwargs):
         #import pdb; pdb.set_trace()
         return reverse_lazy('profile_info', kwargs = {'pk': self.object.User.id})
-	
 
-class ShowDestinations(LoginRequiredMixin, ListView):
+class ShowDestinations(ListView):
     model = models.Destination
     template_name = 'TBackpack/destinations.html'
 
@@ -90,7 +86,7 @@ class ViewDestination (DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(ViewDestination, self).get_context_data(**kwargs)
-        context["reviews"] = models.Review.objects.filter(Destination_id = kwargs['object'].id)
+        context["reviews"] = models.Review.objects.filter(Destination_id = kwargs['object'].id).order_by("-Date_added")
         context["form"] = self.form_class()
 
         s = 0
@@ -105,7 +101,6 @@ class ViewDestination (DetailView):
     
     def post(self, request, **kwargs):
         form = self.form_class(request.POST, request.FILES)
-        import pdb;pdb.set_trace()
         if form.is_valid():
             destination = Destination.objects.get(pk=kwargs["dest_pk"])
             revi = Review.objects.create(Text=form.cleaned_data['Text'],
@@ -114,8 +109,8 @@ class ViewDestination (DetailView):
                             User_id=request.user,
                             Destination_id=destination,
                             )
-        return redirect("destinations")
-
+        return redirect('/destination/%s/' % kwargs["dest_pk"] ) 
+        #return reverse_lazy('destination', kwargs = {'pk': self.object.User.id})
 class ViewReview (DetailView):
     model = models.Review
     template_name = 'TBackpack/review.html'
@@ -136,7 +131,7 @@ class ViewReview (DetailView):
                                                     Author=request.user,
                                                     Review = review)
             comment.save()
-            return redirect('destinations')
+            return redirect('/review/%s/' % kwargs["rev_pk"] ) 
 
         
 def signup(request):
@@ -157,6 +152,8 @@ def signup(request):
             if User.objects.filter(username=username).exists():
                 return HttpResponse('<p>Username exista!!!</p>')
             new_user = User.objects.create_user(username=username, first_name=First_name, last_name=Last_name, password=password1)
+            user_profile = models.UserProfile.objects.create(First_name=First_name, Last_name=Last_name,User_id=new_user.id)
+
             login(request, new_user)
             return redirect('destinations')
         return HttpResponse(form.errors)

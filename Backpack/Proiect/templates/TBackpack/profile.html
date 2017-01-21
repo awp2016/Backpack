@@ -12,7 +12,9 @@
         <li>Birthdate: {{object.Birthdate}}</li>
         <li>Sex: {{object.Sex}}</li>
         <li><a href="{% url 'wishlist' object.pk%}">Wishlist</a></li>
+        {%if object.Avatar%}
         <span class="user-image"> <img src="{{ object.Avatar.url }}" width="50px" height="50px" /> </span>
+        {%endif%}
     </ul>
     <a class="button" href="{% url 'editProfile' object.User.id %}">Edit</a>
 

@@ -1,14 +1,14 @@
 {% extends 'TBackpack/layout.html' %}
 
-{% block head %}
+
+
+{% block content %}
+
 <p>Welcome to <strong>{{object.Destination_name}} </strong>! 
 Country: {{object.Country}} City: {{object.City}}
 Rating: {{grade}}
 </p>
-{% endblock %}
 
-
-{% block content %}
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -17,12 +17,13 @@ Rating: {{grade}}
  </form>
 
 <div> <strong> Reviews: </strong>
-{% for r in reviews|dictsort:"Date_added" %}
+{% for r in reviews|dictsortreversed:"Date_added" %}
 
-	<img src="{{ r.Photo.url }}"/> 
+	<img src="{{ r.Photo.url }}" width="200" height="200"/> 
 	<p> {{r.Text}}</p>
 
 	<p>added by {{r.User_id.username}} at {{r.Date_added}} </p>
+	<a href= "{% url 'viewRev' r.pk%}"> View Comments</a>
 	{% endfor %}
 </div>
 {% endblock %}

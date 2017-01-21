@@ -18,7 +18,7 @@
 	<p> {{c.Author.username}} </p>
 {% endfor %}
 
-{% if request.user.is_authenticate%}
+{% if request.user.is_authenticated%}
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
