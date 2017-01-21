@@ -11,4 +11,4 @@ urlpatterns = [
 	url(r'^destinations/$', views.ShowDestinations.as_view(), name="destinations"),
 	url(r'^destination/(?P<dest_pk>\d+)/$', views.ViewDestination.as_view(), name='viewDest'),
 	url(r'^profile/(?P<pk>\d+)/$', views.ProfileView.as_view(), name='profile_info'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
