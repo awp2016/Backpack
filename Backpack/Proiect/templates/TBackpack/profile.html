@@ -1,4 +1,3 @@
-  
 {% extends 'TBackpack/layout.html' %}
 
 {% block head %}
@@ -12,8 +11,10 @@
         <li>Last Name: {{object.Last_name}}</li>
         <li>Birthdate: {{object.Birthdate}}</li>
         <li>Sex: {{object.Sex}}</li>
+        <li><a href="{% url 'wishlist' object.pk%}">Wishlist</a></li>
         <span class="user-image"> <img src="{{ object.Avatar.url }}" width="50px" height="50px" /> </span>
     </ul>
     <a class="button" href="{% url 'editProfile' object.User.id %}">Edit</a>
 
  {% endblock %}
+
